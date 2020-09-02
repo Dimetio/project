@@ -1,21 +1,19 @@
-let money = prompt("Ваш бюджет на месяц?", '');
-let time = prompt('Введите дату в формате YYYY-MM-DD', '');
+const numberOfFilms = +prompt('Сколько фильмов?', '');
 
-const appData = {
-  budget: money,
-  timeData : time,
-  expenses : {},
-  optionalExpenses : {},
-  income: [],
-  savings : false
+const personalMovieBD = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
 };
 
-let q1 = prompt("Введите обязательную статью расходов в этом месяце", '');
-let q2 = prompt("Во сколько обойдется?", '');
-let q3 = prompt("Введите обязательную статью расходов в этом месяце", '');
-let q4 = prompt("Во сколько обойдется?", '');
+const a = prompt('Один из последних фильмов', ''),
+    b = prompt('На сколько оцените его?', ''),
+    c = prompt('Один из последних фильмов', ''),
+    d = prompt('На сколько оцените его?', '');
 
-appData.expenses.q1 = q2;
-appData.expenses.q3 = q4;
+personalMovieBD.movies[a] = b;
+personalMovieBD.movies[c] = d;
 
-alert(appData.budget / 30);
+console.log(personalMovieBD);
