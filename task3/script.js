@@ -8,7 +8,6 @@ function start() {
     }
 }
 
-
 start();
 
 const personalMovieBD = {

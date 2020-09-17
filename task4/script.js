@@ -1,89 +1,88 @@
-let money;
-let time;
+/* Задание на урок:
+1) У нас уже есть рабочее приложение, состоящее из отдельных функций. Представьте, что
+перед вами стоит задача переписать его так, чтобы все функции стали методами объекта personalMovieDB
+Такое случается в реальных продуктах при смене технологий или подхода к архитектуре программы
+2) Создать метод toggleVisibleMyDB, который при вызове будет проверять свойство privat. Если оно false - он
+переключает его в true, если true - переключает в false. Протестировать вместе с showMyDB.
+3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
+Если он это сделал - возвращать его к этому же вопросу. После того, как все жанры введены - 
+при помощи метода forEach вывести в консоль сообщения в таком виде:
+"Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
 
-function start() {
-  money = +prompt("Ваш бюджет на месяц?", '');
-  time = prompt('Введите дату в формате YYYY-MM-DD', '');
+const personalMovieBD = {
+    count: 0,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false,
+    start: function() {
+        personalMovieBD.count = +prompt('Сколько фильмов?', '');
 
-  while (isNaN(money) || money == "" || money == null) {
-    money = +prompt("Ваш бюджет на месяц?", '');
-  }
-}
-start();
+        while (personalMovieBD.count == '' || personalMovieBD.count == null || isNaN(personalMovieBD.count)) {
+            personalMovieBD.count = +prompt('Сколько фильмов?', '');
+        }
+    },
+    rememberMyFilms: function() {
+        for (let i = 0; i < 2; i++) {
+            const a = prompt('Один из последних фильмов', ''),
+                b = prompt('На сколько оцените его?', '');
 
-const appData = {
-  budget: money,
-  timeData: time,
-  expenses: {},
-  optionalExpenses: {},
-  income: [],
-  savings: true,
-  chooseExpenses: function() {
-    for (let i = 0; i < 2; i++) {
-      let a = prompt("Введите обязательную статью расходов в этом месяце", '');
-      let b = prompt("Во сколько обойдется?", '');
-      if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null && a != '' && b != '' && a.length < 50) {
-        console.log('done');
-        appData.expenses[a] = b;
-      } else {
-        console.log('нужно ввести значение');
-        i--;
-      }
-    }
-  },
-  chooseOptExpenses: function() {
-    for (let i = 1; i <= 3; i++) {
-      let a = prompt("Введите необязательную статью расходов в этом месяце", '');
-      let b = prompt("Во сколько обойдется?", '');
-      if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null && a != '' && b != '' && a.length < 50) {
-        console.log('done');
-        appData.optionalExpenses[i] = b;
-      } else {
-        console.log('нужно ввести значение');
-        i--;
-      }
-    }
-  },
-  detectDayBudget: function() {
-    appData.moneyPerDay = (appData.budget / 30).toFixed();
-    console.log('бюджет: ' + appData.moneyPerDay);
-  },
-  detectLevel: function() {
-    if (appData.moneyPerDay < 100) {
-      console.log('минималка');
-    } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
-      console.log('среднячек');
-    } else if (appData.moneyPerDay > 2000) {
-      console.log('марожик');
-    } else {
-      console.log('ошибка');
-    }
-  },
-  checkSavings: function() {
-    if (appData.savings == true) {
-      let save = +prompt('сумма накоплений');
-      let percent = +prompt('под какой %?');
-      appData.monthIncome = save / 100 / 12 * percent;
-      console.log(`доход с депозита: ${appData.monthIncome}`);
-    }
-  },
-  chooseIncome: function() {
-    let items = prompt('что принесет деньги еще? (через запятую)', '');
-    
-    if (items == '' || typeof(items) != 'string' || typeof(items) == null) {
-      console.log('попробуйка еще раз');      
-    } else {
-      appData.income = items.split(', ');
-      appData.income .push(prompt('может что-то еще?')); 
-      appData.income.sort(); 
-    }
+            if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+                personalMovieBD.movies[a] = b;
+                console.log('done');
+            } else {
+                console.log('error');
+                i--;
+            }
+        }
+    },
+    detectPersonalLevel: function() {
+        if (personalMovieBD.count < 10) {
+            console.log('Просмотрено довольно мало фильмов');
+        } else if (personalMovieBD.count >= 10 && personalMovieBD < 30) {
+            console.log('Вы классический зритель');
+        } else if (personalMovieBD.count >= 30) {
+            console.log('Вы киноман');
+        } else {
+            console.log('Произошла ошибка');
+        }
+    },
+    showMyDB: function(hidden) {
+        if (!hidden) {
+            console.log(personalMovieBD);
+        }
+    },
+    toggleVisibleMyDB: function() {
+        if (personalMovieBD.privat) {
+            personalMovieBD.privat = false;
+        } else {
+            personalMovieBD.privat = true;
+        }
+    },
+    writeYourGenres: function() {
+        // for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i < 2; i++) {
+            // let genre = prompt(`Ваш любимый жанр под номером ${i}`);
+            // if (genre === '' || genre === null) {
+            //     console.log('Вы ввели некорректные данные');
+            //     i--;
+            // } else {
+            //     personalMovieBD.genres[i - 1] = genre;
+            // }
 
-    appData.income.forEach ( (item, i) => {
-      console.log(`Способы доп. заработка: ${i+1} - ${item}`);    
-    });
-  }
+            let genres = prompt(`Введит ваши фильмы через запятую`).toLowerCase();
+
+            if (genres === '' || genres === null) {
+                console.log('Вы ввели некорректные данные');
+                i--;
+            } else {
+                personalMovieBD.genres = genres.split(', ');
+                personalMovieBD.genres.sort();
+            }
+
+            personalMovieBD.genres.forEach((item, i) => {
+                console.log(`Любимый жанр ${i + 1} - это ${item}`);
+            });
+        }
+    }
 };
-
-for(let key in appData) {
-  console.log(`Наша программа включает в себя данные: ${key} - ${appData[key]}`);  
-}
