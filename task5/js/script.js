@@ -1,29 +1,45 @@
-let menu = document.querySelector(".menu");
-let menuItem = document.querySelectorAll(".menu-item");
-let menuItemLi = document.createElement("li");
-let title = document.querySelector('.title');
-let adv = document.querySelector('.adv');
-let question = 'Ваше отношение к технике Apple?';
-let answer = document.querySelector('.prompt');
+/* Задания на урок:
 
-// меняю местами
-menu.insertBefore(menuItem[2], menuItem[1]); 
+1) Удалить все рекламные блоки со страницы (правая часть сайта)
 
-// новый пункт меню
-menuItemLi.classList.add("menu-item");  
-menuItemLi.textContent = "Пятый элемент";                       
-menu.appendChild(menuItemLi);  
+2) Изменить жанр фильма, поменять "комедия" на "драма"
 
-// меняю фон
-document.body.style.background = 'url(img/apple_true.jpg)'; 
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+Реализовать только при помощи JS
 
-// меняю текст
-title.textContent = 'Мы продаем только подлинную технику Apple';
+4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+Отсортировать их по алфавиту 
 
-// убираю рекламу
- adv.remove(); 
-// adv.style.visibility = 'hidden';
-// adv.style.display = 'none';
+5) Добавить нумерацию выведенных фильмов */
 
-// записывают ответ в блок
-answer.textContent = prompt(question);
+'use strict';
+
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Ла-ла лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
+};
+
+const adv = document.querySelectorAll('.promo__adv img');
+const genre = document.querySelector('.promo__genre').textContent = 'Драма';
+const bg = document.querySelector('.promo__bg').style.backgroundImage = "url('img/bg.jpg')";
+const moveList = document.querySelector('.promo__interactive-list');
+
+moveList.innerHTML = "";
+movieDB.movies.sort();
+
+movieDB.movies.forEach((film, i) => {
+    moveList.innerHTML += `
+    <li class="promo__interactive-item">${i + 1} ${film}
+        <div class="delete"></div>
+    </li>
+    `;
+});
+
+adv.forEach(item => {
+    item.remove();
+})
