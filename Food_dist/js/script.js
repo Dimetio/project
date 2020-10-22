@@ -281,4 +281,8 @@ tabsParent.addEventListener('click', function(event) {
           closeModal();
       }, 4000);
   }
+
+  fetch('http://localhost:3000/menu')
+    .then(data => data.json())
+    .then(res => console.log(res));
 });
