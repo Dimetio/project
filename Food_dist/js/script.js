@@ -1,3 +1,6 @@
+require('es6-promise').polyfill();
+import 'nodelist-foreach-polyfill';
+
 import calc from './modules/calc';
 import cards from './modules/cards';
 import forms from './modules/forms';
@@ -30,4 +33,4 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/* npx json-server --watch db.j
+/* npx json-server --watch db.json */
