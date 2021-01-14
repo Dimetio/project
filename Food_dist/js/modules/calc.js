@@ -151,4 +151,4 @@ function calc() {
 //     plusSlides(1)
 // });
 
-module.exports = calc;
+export default calc;
